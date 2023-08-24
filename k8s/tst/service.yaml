@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ms-cildefbackendservice
+  annotations:
+    networking.gke.io/load-balancer-type: "Internal"
+spec:
+  selector:
+    app: ms-cildefbackend
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000

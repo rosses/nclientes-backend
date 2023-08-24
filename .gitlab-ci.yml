@@ -1,0 +1,32 @@
+include: 
+  - project: 'arquitectura-ti/template-base-gcp'
+    ref: master
+    file: 
+      - '/base-auth/.ci-template.yml'
+      - '/build/.ci-template-build.yml'
+      - '/namespace/.ci-template-namespace.yml'
+      - '/secrets/.ci-template-secrets.yml'
+      - '/deploy/.ci-template-deploy.yml'
+
+variables:
+  GIT_DEPTH: 0
+stages:
+  - publish
+  - namespace
+  - secrets
+  - deploy
+default:
+  tags:
+    - docker
+
+docker-build:
+  extends: .docker-build
+  
+create-namespace:
+  extends: .create-namespace
+
+inject-secrets:
+  extends: .inject-secrets
+
+deploy-gke:
+  extends: .deploy-gke

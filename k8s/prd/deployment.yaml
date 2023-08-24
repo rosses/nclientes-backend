@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ms-cildefbackend
+  labels:
+    app: ms-cildefbackend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ms-cildefbackend
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 50%
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: ms-cildefbackend
+    spec:
+      containers:
+      - name: ms-cildefbackend
+        image: CHANGEME
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: "0.5Gi"
+            cpu: "0.5"
+          limits:
+            memory: "1Gi"
+            cpu: "1"
+        env:                       
+        - name: DB_HOST
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: DB_HOST
+        - name: DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: DB_NAME
+        - name: DB_PASS
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: DB_PASS
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: DB_USER
+        - name: HOST_FN
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: HOST_FN
+        - name: SAP_HOST
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: SAP_HOST
+        - name: SAP_PASS
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: SAP_PASS
+        - name: SAP_USER
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: SAP_USER
+        - name: SENGRID_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: SENGRID_API_KEY
+        
