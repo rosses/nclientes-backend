@@ -7,7 +7,7 @@
     "node": ">=8.3.0"
   },
   "scripts": {
-    "start": "npm run docs && nodemon index.js",
+    "start": "nodemon index.js",
     "local": "nodemon index.js --exec 'npm run lint && node'",
     "lint": "eslint --ignore-path .gitignore .",
     "lint-fix": "eslint --ignore-path .gitignore --fix .",
